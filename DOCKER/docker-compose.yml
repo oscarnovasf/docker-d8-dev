@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+
+  drupal:
+    build:
+      context: ./Drupal
+      dockerfile: Dockerfile
+    container_name: drupal
+    restart: always
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    ports:
+      - 8080:80
+    environment:
+      XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9000 remote_enable=1
+    volumes:
+      - ../VOLUMES/modules:/opt/drupal/web/modules/custom
+      - ../VOLUMES/themes:/opt/drupal/web/themes/custom
+      - ../VOLUMES/libraries:/opt/drupal/web/libraries
+
+  mysql:
+    build:
+      context: ./MySql
+      dockerfile: Dockerfile
+    container_name: drupal_mysql
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: drupal
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ../VOLUMES/bbdd:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: drupal_phpmyadmin
+    restart: always
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    ports:
+      - 8888:80
+    environment:
+      PMA_HOST: mysql
+      UPLOAD_LIMIT: 5000000000

@@ -1,0 +1,27 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Ejecutar TODO",
+      "type": "shell",
+      "command": "cd DOCKER; docker-compose up"
+    },
+    {
+      "label": "Ejecutar Drupal",
+      "type": "shell",
+      "command": "cd DOCKER; docker-compose up drupal"
+    },
+    {
+      "label": "Ejecutar PHPMyAdmin",
+      "type": "shell",
+      "command": "cd DOCKER; docker-compose up phpmyadmin"
+    },
+    {
+      "label": "Parar contenedores",
+      "type": "shell",
+      "command": "cd DOCKER; docker-compose stop"
+    }
+  ]
+}
