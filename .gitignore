@@ -1,3 +1,4 @@
 .vscode/sftp.json
 VOLUMES/bbdd/**
+!VOLUMES/bbdd/README.md
 debug.log
